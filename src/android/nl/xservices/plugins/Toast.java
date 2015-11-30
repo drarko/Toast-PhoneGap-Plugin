@@ -57,9 +57,13 @@ public class Toast extends CordovaPlugin {
               message,
               "short".equals(duration) ? android.widget.Toast.LENGTH_SHORT : android.widget.Toast.LENGTH_LONG);
 
-//          toast.getView().setBackgroundColor(Color.GRAY);
-//          toast.getView().setPadding(20, 10, 20, 10);
-          toast.getView().getBackground().setTint(Color.DKGRAY);
+          try {
+              toast.getView().getBackground().setTint(Color.DKGRAY);
+          } catch (NoSuchMethodError e) {
+              toast.getView().setBackgroundColor(Color.GRAY);
+              toast.getView().setPadding(20, 10, 20, 10);
+          }
+          
           if ("top".equals(position)) {
             toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 20 + addPixelsY);
           } else  if ("bottom".equals(position)) {
